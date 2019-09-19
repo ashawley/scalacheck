@@ -1,9 +1,11 @@
 language: scala
 dist: trusty
 script:
+  - find $HOME/.ivy2/cache -type f | head
   - find $HOME/.coursier -type f | head
   - find $HOME/.cache/coursier -type f | head
   - sbt ++$TRAVIS_SCALA_VERSION update
+  - find $HOME/.ivy2/cache -type f | head
   - find $HOME/.coursier -type f | head
   - find $HOME/.cache/coursier -type f | head
 scala:
