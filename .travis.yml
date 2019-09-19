@@ -1,18 +1,12 @@
 language: scala
 dist: trusty
-script: ./tools/travis-script.sh
+script:
+  - find $HOME/.coursier -type f | head
+  - find $HOME/.cache/coursier -type f | head
+  - sbt ++$TRAVIS_SCALA_VERSION update
+  - find $HOME/.coursier -type f | head
+  - find $HOME/.cache/coursier -type f | head
 after_success: ./tools/travis-deploy.sh
-branches:
-  only:
-    - master
-    - 1.12.x
-    - 1.13.x
-    - 1.14.x
-notifications:
-  email:
-    - rickynils@gmail.com
-    - seth.tisue@lightbend.com
-
 scala:
   - 2.10.7
   - 2.11.12
@@ -60,10 +54,6 @@ matrix:
         apt:
           update: true # https://github.com/rickynils/scalacheck/issues/412
       env: PLATFORM=native SBT_PARALLEL=true SCALANATIVE_VERSION="0.4.0-M2" WORKERS=1 DEPLOY=true
-    - env: EXAMPLES
-      script:
-      - cd examples
-      - for d in */ ; do cd "$d" && sbt test:compile && cd ../ ; done
     - env: SCALAFIX
       script:
       - cd scalafix
