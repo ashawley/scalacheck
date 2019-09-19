@@ -6,7 +6,6 @@ script:
   - sbt ++$TRAVIS_SCALA_VERSION update
   - find $HOME/.coursier -type f | head
   - find $HOME/.cache/coursier -type f | head
-after_success: ./tools/travis-deploy.sh
 scala:
   - 2.10.7
   - 2.11.12
